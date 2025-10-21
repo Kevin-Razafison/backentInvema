@@ -6,7 +6,7 @@ dotenv.config();
 
 const PORT = process.env.PORT || 4000;
 
-bcrypt.hash('arkangel123', 10)
+bcrypt.hash('5617hery', 10)
     .then(hash => {
         console.log('Hashed Password: ', hash ,' here is the end');
     })
