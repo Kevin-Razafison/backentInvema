@@ -29,7 +29,7 @@ const createProduct = async (req, res) => {
     if (!name) return res.status(400).json({ error: "Le champ name est requis." });
     if (!description) return res.status(400).json({ error: "Le champ description est requis." });
     if (!sku) return res.status(400).json({ error: "Le champ sku est requis." });
-    if (!quantity) return res.status(400).json({ error: "Le champ quantity est requis." });
+    if (!quantity) return res.status(400).json({ error: "Le champ quantity est requis."});
     if (!price) return res.status(400).json({ error: "Le champ price est requis." });
     if (!location) return res.status(400).json({ error: "Le champ location est requis." });
     if (!categoryId) return res.status(400).json({ error: "Le champ categoryId est requis." });
