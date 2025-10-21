@@ -7,9 +7,8 @@ import {
   updateRequestStatus,
   deleteRequest,
 } from "../controllers/request.controller.js";
-import router from "./products.routes.js";
 
-router = Router();
+let router = Router();
 
 router.post("/", createRequest);
 router.get("/", getRequests);
