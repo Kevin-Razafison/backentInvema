@@ -13,7 +13,7 @@ import auth from "./middleware/auth.js";
 const app = express();
 
 app.use(cors({
-    origin: ["http://localhost:5500"],
+    origin:  "*",
     methods: ["GET","POST","PUT","DELETE"],
 }));
 app.use((req, res, next) => {
