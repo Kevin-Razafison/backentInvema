@@ -8,7 +8,7 @@ import {
   deleteRequest,
 } from "../controllers/request.controller.js";
 
-let router = Router();
+const router = Router();
 
 router.post("/", createRequest);
 router.get("/", getRequests);
