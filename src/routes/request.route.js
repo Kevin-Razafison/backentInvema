@@ -1,4 +1,4 @@
-import router from "./supplier.route.js";
+import Router from "express";
 
 import {
   createRequest,
@@ -7,6 +7,9 @@ import {
   updateRequestStatus,
   deleteRequest,
 } from "../controllers/request.controller.js";
+import router from "./products.routes.js";
+
+router = Router();
 
 router.post("/", createRequest);
 router.get("/", getRequests);

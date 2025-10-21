@@ -5,15 +5,15 @@ import productRoutes from "./routes/products.routes.js";
 import categoryRoutes from "./routes/category.route.js";
 import orderRoutes from "./routes/order.route.js";
 import userRoutes from "./routes/user.route.js";
-import supplierRoutes from "./routes/supplier.route.js"
 import requestRoutes  from "./routes/request.route.js";
+import supplierRoutes from "./routes/supplier.route.js"
 import authRoute from "./routes/auth.route.js";
 import errorHandler from "./middleware/errorHandler.js";
 import auth from "./middleware/auth.js";
 const app = express();
 
 app.use(cors({
-    origin: "*",
+    origin: "",
     methods: ["GET","POST","PUT","DELETE"],
 }));
 app.use((req, res, next) => {
@@ -33,8 +33,8 @@ app.use(auth)
 app.use("/api/categories", categoryRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/users", userRoutes);
-app.use("/api/supplier", supplierRoutes);
 app.use("/api/requests", requestRoutes);
+app.use("/api/supplier", supplierRoutes);
 app.use("/api/products", productRoutes);
 
 
