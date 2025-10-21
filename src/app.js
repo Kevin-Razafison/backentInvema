@@ -17,7 +17,7 @@ app.use(cors({
     methods: ["GET","POST","PUT","DELETE"],
 }));
 app.use((req, res, next) => {
-  res.setHeader("Content-Security-Policy", "default-src 'self' https://backentinvema.onrender.com");
+  res.setHeader("Content-Security-Policy", "default-src 'self' http://localhost:4000");
   next();
 });
 
