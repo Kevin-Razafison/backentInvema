@@ -33,6 +33,7 @@ const requireAnyRole = (...roles) => {
 };
 
 // Middleware pour vérifier si c'est le propriétaire OU un admin
+// IMPORTANT: C'est un middleware direct, pas une factory function
 const requireOwnerOrAdmin = (req, res, next) => {
   if (!req.user) {
     return res.status(401).json({ error: "Authentification requise" });
