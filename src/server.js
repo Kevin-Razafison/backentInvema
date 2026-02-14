@@ -15,5 +15,5 @@ bcrypt.hash('5617hery', 10)
     })
 
 app.listen(PORT, () => {
-    console.log(`API running on http://localhost:${PORT}`);
+    console.log(`API running`);
 });

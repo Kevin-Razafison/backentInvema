@@ -1,28 +1,36 @@
-import { Router } from "express";
-import {
-    getCategories,
-    getCategoryById,
-    createCategory,
-    updateCategory,
-    deleteCategory
-}  from "../controllers/category.controller.js";
+/**
+ * ========================================
+ * CATEGORY ROUTES - VERSION AMÉLIORÉE
+ * ========================================
+ * 
+ * Sécurité:
+ * - Lecture publique (ou authentifiée selon vos besoins)
+ * - Création/modification réservées aux admins ou magasiniers
+ * - Suppression réservée aux admins uniquement
+ */
 
-import {requireRole} from "../middleware/requireRole.js"
+import { Router } from "express";
+import auth from "../middleware/auth.js";
+import { requireAdmin, requireMagasinier } from "../middleware/requireRole.js";
+import {
+  getCategories,
+  getCategoryById,
+  createCategory,
+  updateCategory,
+  deleteCategory
+} from "../controllers/category.controller.js";
 
 const router = Router();
-//Récupérer toutes les catégories principales (avec sous-catégories)
-router.get("/",getCategories);
 
-//Récupérer une catégorie par ID (avec enfants et parent)
-router.get("/:id", getCategoryById);
+// Routes publiques (ou ajoutez auth si nécessaire)
+router.get("/", getCategories);                                     // Lister catégories principales
+router.get("/:id", getCategoryById);                                // Voir une catégorie
 
-//Créer une nouvelle catégorie ou sous-catégorie
-router.post("/", createCategory)
+// Routes protégées - Admin ou Magasinier
+router.post("/", auth, requireMagasinier, createCategory);          // Créer catégorie
+router.put("/:id", auth, requireMagasinier, updateCategory);        // Modifier catégorie
 
-//Mettre à jour une catégorie ou sous catégorie
-router.put("/:id",updateCategory);
-
-//supprimer une catégorie ou sous-catégorie
-router.delete("/:id", requireRole('ADMIN'), deleteCategory);
+// Route admin uniquement
+router.delete("/:id", auth, requireAdmin, deleteCategory);          // Supprimer catégorie
 
 export default router;
