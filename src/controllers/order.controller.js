@@ -541,9 +541,9 @@ const getNotifications = async (req, res) => {
   try {
     const notifications = await prisma.order.findMany({
       where: {
-        status: { in: ["APPROVED", "REJECTER"] },
+        status: { in: ["SENT", "RECEIVED"] }, // adaptez selon votre logique métier
         createdAt: {
-          gte: new Date(Date.now() - 24 * 60 * 60 * 1000) // Dernières 24h
+          gte: new Date(Date.now() - 24 * 60 * 60 * 1000)
         }
       },
       include: { 
