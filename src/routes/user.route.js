@@ -9,7 +9,6 @@
  * - Utilisateurs peuvent voir leur propre profil
  * - Mise à jour nécessite être propriétaire ou admin
  */
-
 import { Router } from "express";
 import auth from "../middleware/auth.js";
 import { requireAdmin, requireOwnerOrAdmin } from "../middleware/requireRole.js";
@@ -30,6 +29,6 @@ router.delete("/:id", auth, requireAdmin, deleteUser);      // Supprimer utilisa
 // Routes authentifiées
 router.get("/", auth, getUsers);                            // Lister tous les utilisateurs
 router.get("/:id", auth, getUserById);                      // Voir un utilisateur
-router.put("/:id", auth, requireOwnerOrAdmin(), updateUser); // Modifier (propriétaire ou admin)
+router.put("/:id", auth, requireOwnerOrAdmin, updateUser);  // ✅ SANS parenthèses !
 
 export default router;
