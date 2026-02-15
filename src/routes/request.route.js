@@ -1,18 +1,10 @@
 /**
- * ========================================
- * REQUEST ROUTES - VERSION AMÉLIORÉE
- * ========================================
- * 
- * Sécurité:
- * - Toutes les routes nécessitent authentification
- * - Employés peuvent créer des demandes
- * - Modification du statut réservée aux magasiniers/admins
- * - Suppression réservée aux admins
+ * REQUEST ROUTES - CORRIGÉ
  */
 
 import { Router } from "express";
 import auth from "../middleware/auth.js";
-import { requireMagasinier, requireAdmin } from "../middleware/requireRole.js";
+import { requireAdmin } from "../middleware/requireRole.js";
 import {
   createRequest,
   getRequests,
@@ -25,17 +17,15 @@ import {
 
 const router = Router();
 
-// Routes authentifiées - Accessibles à tous les employés
-router.post("/", auth, createRequest);                               // Créer demande (tous)
-router.get("/", auth, getRequests);                                  // Lister demandes (tous)
-router.get("/stats", auth, getRequestStats);                         // Statistiques (tous)
-router.get("/:id", auth, getRequestById);                            // Voir une demande (tous)
+// Routes authentifiées - Accessibles à tous
+router.post("/", auth, createRequest);              
+router.get("/", auth, getRequests);
+router.get("/stats", auth, getRequestStats);
+router.get("/:id", auth, getRequestById);
 
-// Routes protégées - Admin ou Magasinier
-router.put("/:id/status", auth, requireMagasinier, updateRequestStatus);  // Changer statut (magasinier/admin)
-router.put("/:id", auth, requireMagasinier, updateRequest);               // Modifier demande (magasinier/admin)
-
-// Route admin uniquement
-router.delete("/:id", auth, requireAdmin, deleteRequest);                 // Supprimer demande (admin uniquement)
+// Routes ADMIN UNIQUEMENT
+router.put("/:id/status", auth, requireAdmin, updateRequestStatus);
+router.put("/:id", auth, requireAdmin, updateRequest);
+router.delete("/:id", auth, requireAdmin, deleteRequest);
 
 export default router;

@@ -16,12 +16,12 @@ import {
 const router = Router();
 
 // Routes publiques
-router.get("/", getCategories);                      // Lister catégories
-router.get("/:id", getCategoryById);                 // Voir une catégorie
+router.get("/", getCategories);
+router.get("/:id", getCategoryById);
 
 // Routes ADMIN UNIQUEMENT
-router.post("/", auth, requireAdmin, createCategory);    
-router.put("/:id", auth, requireAdmin, updateCategory);    
-router.delete("/:id", auth, requireAdmin, deleteCategory); 
+router.post("/", auth, requireAdmin, createCategory);
+router.put("/:id", auth, requireAdmin, updateCategory);
+router.delete("/:id", auth, requireAdmin, deleteCategory);
 
 export default router;

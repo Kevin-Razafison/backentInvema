@@ -1,12 +1,5 @@
 /**
- * ========================================
- * SUPPLIER ROUTES - VERSION AMÉLIORÉE
- * ========================================
- * 
- * Sécurité:
- * - Lecture publique ou authentifiée selon vos besoins
- * - Création/modification/suppression réservées aux admins
- * - Upload d'images via Cloudinary
+ * SUPPLIER ROUTES - ADMIN UNIQUEMENT
  */
 
 import { Router } from "express";
@@ -23,13 +16,13 @@ import {
 
 const router = Router();
 
-// Routes publiques (ou ajoutez auth si nécessaire)
-router.get("/", getSuppliers);                                    // Lister fournisseurs
-router.get("/:id", getSupplierById);                              // Voir un fournisseur
+// Routes publiques
+router.get("/", getSuppliers);
+router.get("/:id", getSupplierById);
 
-// Routes admin avec upload Cloudinary
-router.post("/", auth, requireAdmin, upload.single("image"), createSupplier);     // Créer avec image
-router.put("/:id", auth, requireAdmin, upload.single("image"), updateSupplier);   // Modifier (avec ou sans nouvelle image)
-router.delete("/:id", auth, requireAdmin, deleteSupplier);                        // Supprimer
+// Routes ADMIN UNIQUEMENT
+router.post("/", auth, requireAdmin, upload.single("image"), createSupplier);
+router.put("/:id", auth, requireAdmin, upload.single("image"), updateSupplier);
+router.delete("/:id", auth, requireAdmin, deleteSupplier);
 
 export default router;

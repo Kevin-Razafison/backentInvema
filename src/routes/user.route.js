@@ -1,14 +1,7 @@
 /**
- * ========================================
- * USER ROUTES - VERSION AMÉLIORÉE
- * ========================================
- * 
- * Sécurité:
- * - Toutes les routes nécessitent authentification
- * - Création/suppression réservées aux admins
- * - Utilisateurs peuvent voir leur propre profil
- * - Mise à jour nécessite être propriétaire ou admin
+ * USER ROUTES 
  */
+
 import { Router } from "express";
 import auth from "../middleware/auth.js";
 import { requireAdmin, requireOwnerOrAdmin } from "../middleware/requireRole.js";
@@ -22,13 +15,13 @@ import {
 
 const router = Router();
 
-// Routes admin uniquement
-router.post("/", auth, requireAdmin, createUser);           // Créer utilisateur (admin uniquement)
-router.delete("/:id", auth, requireAdmin, deleteUser);      // Supprimer utilisateur (admin uniquement)
+// Routes ADMIN UNIQUEMENT
+router.post("/", auth, requireAdmin, createUser);
+router.delete("/:id", auth, requireAdmin, deleteUser);
 
 // Routes authentifiées
-router.get("/", auth, getUsers);                            // Lister tous les utilisateurs
-router.get("/:id", auth, getUserById);                      // Voir un utilisateur
-router.put("/:id", auth, requireOwnerOrAdmin, updateUser);  // ✅ SANS parenthèses !
+router.get("/", auth, getUsers);
+router.get("/:id", auth, getUserById);
+router.put("/:id", auth, requireOwnerOrAdmin, updateUser);
 
 export default router;

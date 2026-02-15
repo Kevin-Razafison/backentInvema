@@ -1,17 +1,10 @@
 /**
- * ========================================
- * ORDER ROUTES - VERSION AMÉLIORÉE
- * ========================================
- * 
- * Sécurité:
- * - Toutes les routes nécessitent authentification (sauf confirmation email)
- * - Création/modification/suppression réservées aux admins ou magasiniers
- * - Routes de confirmation/rejet sécurisées par token JWT
+ * ORDER ROUTES
  */
 
 import { Router } from "express";
 import auth from "../middleware/auth.js";
-import { requireMagasinier } from "../middleware/requireRole.js";
+import { requireAdmin } from "../middleware/requireRole.js"; // 
 import {
   createOrder,
   getOrders,
@@ -25,18 +18,18 @@ import {
 
 const router = Router();
 
-// Routes authentifiées - Lecture
-router.get("/", auth, getOrders);                                    // Lister commandes
-router.get("/notifications", auth, getNotifications);                // Notifications récentes
-router.get("/:id", auth, getOrderById);                              // Voir une commande
+// Routes authentifiées
+router.get("/", auth, getOrders);
+router.get("/notifications", auth, getNotifications);
+router.get("/:id", auth, getOrderById);
 
-// Routes protégées - Admin ou Magasinier
-router.post("/", auth, requireMagasinier, createOrder);              // Créer commande
-router.put("/:id", auth, requireMagasinier, updateOrder);            // Modifier commande
-router.delete("/:id", auth, requireMagasinier, deleteOrder);         // Supprimer commande
+// Routes ADMIN UNIQUEMENT
+router.post("/", auth, requireAdmin, createOrder);
+router.put("/:id", auth, requireAdmin, updateOrder);
+router.delete("/:id", auth, requireAdmin, deleteOrder);
 
-// Routes publiques - Confirmation via email (sécurisées par token dans l'URL)
-router.get("/:id/confirm", confirmOrder);                            // Confirmer commande (fournisseur)
-router.get("/:id/reject", rejectOrder);                              // Rejeter commande (fournisseur)
+// Routes publiques - Confirmation via email
+router.get("/:id/confirm", confirmOrder);
+router.get("/:id/reject", rejectOrder);
 
 export default router;
